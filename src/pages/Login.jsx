@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import Container from "../components/Container";
+import Spinner from "../components/Spinner";
 import { login as authLogin } from "../features/auth/authSlice";
 import authService from "../appwrite/authService";
 import { useDispatch } from "react-redux";
@@ -18,9 +20,14 @@ const Login = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
-		clearErrors,
-	} = useForm();
+		formState: { errors, isValid, isSubmitting },
+	} = useForm({
+		mode: "onTouched",
+		defaultValues: {
+			email: "",
+			password: "",
+		},
+	});
 
 	const login = async (data) => {
 		setError("");
@@ -39,9 +46,9 @@ const Login = () => {
 	};
 
 	return (
-		<>
-			<section className="flex justify-center items-center h-screen">
-				<div className=" max-w-[520px] border border-gray-100 rounded-md flex-auto p-8">
+		<Container>
+			<section className="flex justify-end mt-8 md:mt-20">
+				<div className=" max-w-[580px] border border-gray-100 rounded-md flex-auto p-8">
 					<div className=" w-full">
 						<div className="text-center mb-9">
 							<h2 className="text-5xl font-bold mb-4">Login</h2>
@@ -109,8 +116,15 @@ const Login = () => {
 							</div>
 
 							{/* Login Button */}
-							<div className="flex justify-center items-center  my-6">
-								<Button type="submit">Login</Button>
+							<div className="flex justify-center items-center gap-4  my-6">
+								<Button
+									classname="flex items-center justify-center gap-5"
+									type="submit"
+									disabled={!isValid || isSubmitting}
+								>
+									{isSubmitting && <Spinner className="border-white" />}
+									Login
+								</Button>
 							</div>
 						</form>
 
@@ -123,7 +137,7 @@ const Login = () => {
 					</div>
 				</div>
 			</section>
-		</>
+		</Container>
 	);
 };
 

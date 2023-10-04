@@ -1,4 +1,5 @@
 import Container from "../components/Container";
+
 function Home() {
 	return (
 		<Container>
