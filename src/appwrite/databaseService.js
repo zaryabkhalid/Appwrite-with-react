@@ -13,7 +13,7 @@ export class DatabaseService {
 	}
 
 	// Create TODO
-	async createTodo({ todo, isCompleted }) {
+	async createTodo({ todo, isCompleted, userId }) {
 		try {
 			return await this.databases.createDocument(
 				config.appwriteDatabaseId,
@@ -22,6 +22,7 @@ export class DatabaseService {
 				{
 					todo,
 					isCompleted,
+					userId,
 				}
 			);
 		} catch (error) {

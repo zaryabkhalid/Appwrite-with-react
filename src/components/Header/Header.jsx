@@ -5,7 +5,7 @@ import LogoutBtn from "./LogoutBtn";
 import { nanoid } from "@reduxjs/toolkit";
 
 function Header() {
-	const authStatus = useSelector((state) => state.auth.status);
+	const authStatus = useSelector((state) => state.authReducer.status);
 	const navigate = useNavigate();
 
 	const navItems = [
@@ -34,7 +34,7 @@ function Header() {
 			<nav className="px-8 py-4 flex justify-between items-center">
 				<div>
 					<Link to="/" className="text-4xl text-pink-500 font-bold">
-						Appwrite/Auth
+						Appwrite/Todo
 					</Link>
 				</div>
 
